@@ -118,6 +118,22 @@ exports.updateTask = async(req, res) =>{
     }
 }
 
+// TOGGLE PIN
+exports.togglePin = async (req, res) => {
+    try {
+        const task = await Task.findOne({ _id: req.params.id, owner: req.user.id });
+        if (!task) return res.status(404).json({ success: false, message: "Task not found" });
+
+        task.pinned = !task.pinned;
+        await task.save();
+
+        res.json({ success: true, task });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 // DELETE TASK
 exports.deleteTask = async (req, res) => {
     try {

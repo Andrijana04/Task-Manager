@@ -14,7 +14,8 @@ const AllTasks = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    setFilteredTask(filter ? tasks.filter((t) => t.priority === filter) : tasks);
+    const base = filter ? tasks.filter((t) => t.priority === filter) : tasks;
+    setFilteredTask([...base].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0)));
   }, [filter, tasks]);
 
   if (loading) return <LoadingState />;

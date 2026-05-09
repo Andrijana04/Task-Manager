@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
@@ -14,7 +14,26 @@ const AddTask = ({ setOpen }) => {
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const textareaRef = useRef(null);
   const url = "https://task-manager-backend-srzi.onrender.com";
+
+  // Manually insert \n at cursor position so Radix Dialog cannot intercept Enter
+  const handleDescriptionKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      const el = textareaRef.current;
+      const start = el.selectionStart;
+      const end = el.selectionEnd;
+      const newValue = description.substring(0, start) + "\n" + description.substring(end);
+      setDescription(newValue);
+      // Restore cursor position after React re-render
+      requestAnimationFrame(() => {
+        el.selectionStart = start + 1;
+        el.selectionEnd = start + 1;
+      });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +72,15 @@ const AddTask = ({ setOpen }) => {
       </div>
       <div>
         <label className={labelCls}>Description</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} placeholder="Describe the task..." className={`${inputCls} resize-none`} />
+        <textarea
+          ref={textareaRef}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          onKeyDown={handleDescriptionKeyDown}
+          rows={5}
+          placeholder="Describe the task..."
+          className={`${inputCls} resize-y`}
+        />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>

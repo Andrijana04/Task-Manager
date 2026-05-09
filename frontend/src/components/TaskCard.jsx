@@ -50,9 +50,14 @@ const TaskCard = ({ task }) => {
       </div>
 
       {/* Description */}
-      <p className="text-[13px] text-gray-600 dark:text-gray-300 leading-relaxed mb-4 line-clamp-2">
-        {task.description}
-      </p>
+      <div className="text-[13px] text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+        {task.description.split("\n").map((line, i) => (
+          <React.Fragment key={i}>
+            {line}
+            {i < task.description.split("\n").length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </div>
 
       {/* Footer */}
       <div className="flex items-center justify-between">

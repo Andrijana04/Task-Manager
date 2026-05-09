@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
@@ -13,6 +13,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
+  const textareaRef = useRef(null);
   const url = "https://task-manager-backend-srzi.onrender.com";
 
   if (!taskToEdit) return null;
@@ -24,6 +25,22 @@ const EditTask = ({ setOpen, taskToEdit }) => {
     setDueDate(taskToEdit.dueDate?.split("T")[0] || "");
     setCompleted(taskToEdit.completed ?? false);
   }, [taskToEdit]);
+
+  const handleDescriptionKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      const el = textareaRef.current;
+      const start = el.selectionStart;
+      const end = el.selectionEnd;
+      const newValue = description.substring(0, start) + "\n" + description.substring(end);
+      setDescription(newValue);
+      requestAnimationFrame(() => {
+        el.selectionStart = start + 1;
+        el.selectionEnd = start + 1;
+      });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +77,14 @@ const EditTask = ({ setOpen, taskToEdit }) => {
       </div>
       <div>
         <label className={labelCls}>Description</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className={`${inputCls} resize-none`} />
+        <textarea
+          ref={textareaRef}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          onKeyDown={handleDescriptionKeyDown}
+          rows={5}
+          className={`${inputCls} resize-y`}
+        />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>

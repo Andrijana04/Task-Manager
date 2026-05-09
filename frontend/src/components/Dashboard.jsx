@@ -90,7 +90,7 @@ const Dashboard = () => {
     <div className="flex min-h-screen bg-gray-50 dark:bg-slate-950">
       <SideBar />
 
-      <div className="lg:ml-[20%] w-full pt-14">
+      <div className="lg:ml-72 w-full pt-14">
         {/* Guest banner */}
         {isGuest && (
           <div className="mx-4 lg:mx-6 mt-4 flex items-center justify-between gap-3 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/50 rounded-xl px-4 py-3">
@@ -113,8 +113,8 @@ const Dashboard = () => {
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">Dashboard</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Dashboard</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 {isGuest ? "Preview mode — sign in to manage tasks" : "Manage and track your tasks"}
               </p>
             </div>
@@ -162,15 +162,15 @@ const Dashboard = () => {
             {stats.map(({ label, value, icon: Icon, color, bg }) => (
               <div
                 key={label}
-                className="bg-white dark:bg-slate-900 rounded-xl p-4 border border-gray-100 dark:border-slate-700/60 shadow-sm"
+                className="bg-white dark:bg-slate-900 rounded-xl p-3.5 border border-gray-100 dark:border-slate-700/60 shadow-sm"
               >
-                <div className={`inline-flex p-2 rounded-lg ${bg} mb-3`}>
-                  <Icon size={18} className={color} />
+                <div className={`inline-flex p-1.5 rounded-lg ${bg} mb-2.5`}>
+                  <Icon size={15} className={color} />
                 </div>
-                <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                <p className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
                   {isGuest ? "—" : value}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{label}</p>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-300 mt-0.5">{label}</p>
               </div>
             ))}
           </div>

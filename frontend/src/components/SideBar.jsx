@@ -67,23 +67,26 @@ const SideBar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-screen w-[72%] md:w-[45%] lg:w-[20%]
+        className={`fixed top-0 left-0 h-screen w-[72%] md:w-[45%] lg:w-72
           bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700/60
           z-40 flex flex-col pt-14 transition-transform duration-300
           ${hamburger ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         {/* Profile section */}
-        <div className="flex flex-col items-center px-4 py-5 border-b border-gray-100 dark:border-slate-700/60">
+        <div className="flex flex-col items-center px-5 py-7 border-b border-gray-100 dark:border-slate-700/60">
           {isGuest ? (
             // Guest profile placeholder
-            <div className="flex flex-col items-center gap-2 w-full">
-              <div className="w-14 h-14 rounded-full bg-gray-100 dark:bg-slate-800 border-2 border-dashed border-gray-300 dark:border-slate-600 flex items-center justify-center">
-                <LogIn size={20} className="text-gray-400 dark:text-gray-500" />
+            <div className="flex flex-col items-center gap-3 w-full">
+              <div className="w-24 h-24 rounded-full bg-gray-100 dark:bg-slate-800 border-2 border-dashed border-gray-300 dark:border-slate-600 flex items-center justify-center">
+                <LogIn size={24} className="text-gray-400 dark:text-gray-500" />
               </div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Guest</p>
+              <div className="text-center">
+                <p className="text-base font-semibold text-gray-500 dark:text-gray-400">Guest User</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Not signed in</p>
+              </div>
               <button
                 onClick={() => navigate("/login", { state: { from: location } })}
-                className="w-full text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-100 dark:border-indigo-800/50 px-3 py-1.5 rounded-lg transition-colors"
+                className="w-full text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-100 dark:border-indigo-800/50 px-3 py-2 rounded-lg transition-colors"
               >
                 Sign in to your account
               </button>
@@ -91,19 +94,19 @@ const SideBar = () => {
           ) : (
             // Authenticated profile
             <div className="flex flex-col items-center">
-              <div className="relative">
+              <div className="relative p-1 rounded-full border-2 border-gray-900 dark:border-white">
                 <img
                   src={image || userImg}
                   alt="profile"
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-indigo-500/40 cursor-pointer"
+                  className="w-28 h-28 rounded-full object-cover cursor-pointer shadow-sm"
                   onClick={() => setOpenImage(true)}
                 />
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-slate-900" />
+                <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-slate-900" />
               </div>
-              <p className="mt-2 font-semibold text-gray-800 dark:text-white text-sm">
+              <p className="mt-3 text-base font-bold text-gray-800 dark:text-white tracking-tight">
                 {userName || "User"}
               </p>
-              <p className="text-xs text-gray-400 dark:text-gray-500">Task Manager</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 font-medium">Task Manager</p>
             </div>
           )}
         </div>
@@ -116,7 +119,7 @@ const SideBar = () => {
               to={to}
               onClick={() => setHamburger(false)}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                `flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                   isActive
                     ? activeColor
                     : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
@@ -132,28 +135,28 @@ const SideBar = () => {
         {/* Progress — only shown when authenticated */}
         {!isGuest && (
           <div className="mx-3 mt-1 p-4 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+            <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
               Progress
             </p>
-            <div className="grid grid-cols-3 gap-2 mb-3">
+            <div className="grid grid-cols-3 gap-2 mb-4">
               <div className="text-center">
-                <p className="text-lg font-bold text-gray-800 dark:text-white">{total}</p>
-                <p className="text-[10px] text-gray-400 dark:text-gray-500">Total</p>
+                <p className="text-xl font-bold text-gray-800 dark:text-white">{total}</p>
+                <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500 mt-0.5">Total</p>
               </div>
               <div className="text-center">
-                <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{completed}</p>
-                <p className="text-[10px] text-gray-400 dark:text-gray-500">Done</p>
+                <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{completed}</p>
+                <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500 mt-0.5">Done</p>
               </div>
               <div className="text-center">
-                <p className="text-lg font-bold text-amber-500">{pendingTasks.length}</p>
-                <p className="text-[10px] text-gray-400 dark:text-gray-500">Pending</p>
+                <p className="text-xl font-bold text-amber-500">{pendingTasks.length}</p>
+                <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500 mt-0.5">Pending</p>
               </div>
             </div>
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs text-gray-500 dark:text-gray-400">Completion</span>
-              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">{progressPct}%</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Completion</span>
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{progressPct}%</span>
             </div>
-            <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-indigo-500 rounded-full transition-all duration-700 ease-out"
                 style={{ width: `${progressPct}%` }}

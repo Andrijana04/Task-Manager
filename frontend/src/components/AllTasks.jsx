@@ -38,17 +38,19 @@ const AllTasks = () => {
 // ─── Shared helpers (used by CompletedTasks & PendingTasks too) ───────────────
 
 export const TaskListHeader = ({ title, filter, setFilter, count }) => (
-  <div className="flex justify-between items-center mb-4">
+  <div className="flex justify-between items-center mb-5">
     <div>
-      <h1 className="text-lg font-bold text-gray-800 dark:text-white">{title}</h1>
-      <p className="text-xs text-gray-400 dark:text-gray-500">{count} task{count !== 1 ? "s" : ""}</p>
+      <h1 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">{title}</h1>
+      <p className="text-xs font-medium text-gray-400 dark:text-gray-500 mt-0.5">
+        {count} task{count !== 1 ? "s" : ""}
+      </p>
     </div>
     <div className="flex items-center gap-2">
-      <ListFilter size={16} className="text-gray-400" />
+      <ListFilter size={15} className="text-gray-400" />
       <select
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className="text-sm border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="text-xs font-medium border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         <option value="">All Priority</option>
         <option value="High">High</option>

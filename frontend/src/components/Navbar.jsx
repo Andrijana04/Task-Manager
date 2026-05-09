@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-0 w-full z-30 bg-white border-b border-gray-200 dark:bg-slate-900 dark:border-slate-700/60 shadow-sm">
-      <nav className="flex justify-between items-center h-14 px-4 lg:px-6 lg:ml-[20%]">
+      <nav className="flex justify-between items-center h-14 px-4 lg:px-6 lg:ml-72">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2">
           <div className="bg-indigo-600 text-white p-1.5 rounded-lg">

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-configmap
+  namespace: taskmanager
+data:
+  mongo-host: "mongodb-service"
+  mongo-port: "27017"
+  mongo-init-script: |
+    db = db.getSiblingDB('taskmanager');
+    db.createCollection('tasks');
+    db.createCollection('users');
+    print('MongoDB initialized successfully');

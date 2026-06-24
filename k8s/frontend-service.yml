@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: taskmanager
+  labels:
+    app: taskmanager-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: taskmanager-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
